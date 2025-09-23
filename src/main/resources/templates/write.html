@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, textarea {
+            margin-top: 5px;
+            padding: 8px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>게시글 작성</h1>
+<form th:action="@{/board/save}" method="post">
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="content">내용</label>
+    <textarea id="content" name="content" required></textarea>
+
+    <label for="writer">작성자</label>
+    <input type="text" id="writer" name="writer" required>
+
+    <button type="submit">작성 완료</button>
+</form>
+</body>
+</html>
