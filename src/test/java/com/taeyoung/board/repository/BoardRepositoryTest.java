@@ -26,4 +26,11 @@ public class BoardRepositoryTest {
         Assertions.assertThat(boardList).isNotEmpty();
     }
 
+    @Test
+    void deleteById() {
+        List<Board> beforeBoardList = repository.findAll();
+        repository.deleteById(7L);
+        List<Board> afterBoardList = repository.findAll();
+        Assertions.assertThat(afterBoardList.size()).isEqualTo(beforeBoardList.size() - 1);
+    }
 }

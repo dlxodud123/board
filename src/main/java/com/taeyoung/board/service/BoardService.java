@@ -29,4 +29,9 @@ public class BoardService {
     public List<Board> findAll() {
         return boardRepository.findAll();
     }
+
+    // 글 삭제
+    public void delete(Long id) {
+        boardRepository.deleteById(id);
+    }
 }

@@ -71,6 +71,25 @@ public class MemoryBoardRepository implements BoardRepository{
         }
     }
 
+    // 글 삭제
+    public void deleteById(Long id) {
+        String sql = "delete from board where id = ?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
     // connection 연결
     private Connection getConnection() throws SQLException {
         Connection con = dataSource.getConnection();
