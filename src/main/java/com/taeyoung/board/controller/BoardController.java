@@ -47,26 +47,13 @@ public class BoardController {
     // 글 수정
     @GetMapping("/board/edit/{id}")
     public String editForm(@PathVariable Long id, Model model) {
-        Board board = boardService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시글 없음: " + id));
-
-        model.addAttribute("board", board); // 모델에 담아서 edit.html에 전달
-        return "edit"; // edit.html 렌더링
+        Board board = boardService.findById(id);
+        model.addAttribute("board", board);
+        return "edit";
     }
     @PostMapping("/board/update/{id}")
-    public String updateBoard(@PathVariable Long id,
-                              @RequestParam String title,
-                              @RequestParam String content,
-                              @RequestParam String writer) {
-        Board board = boardService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시글 없음: " + id));
-
-        // 값 수정
-        board.setTitle(title);
-        board.setContent(content);
-        board.setWriter(writer);
-
-        boardService.update(board); // update 쿼리 실행
-        return "redirect:/board"; // 수정 후 목록으로 리다이렉트
+    public String updateBoard(@ModelAttribute BoardForm form) {
+        boardService.update(form);
+        return "redirect:/board";
     }
 }

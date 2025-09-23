@@ -8,4 +8,6 @@ public interface BoardRepository {
     Board save(Board board);
     List<Board> findAll();
     void deleteById(Long id);
+    Board findById(Long id);
+    void update(Board board);
 }

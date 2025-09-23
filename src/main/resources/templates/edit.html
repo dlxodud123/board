@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시글 수정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, textarea {
+            margin-top: 5px;
+            padding: 8px;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+<h1>게시글 수정</h1>
+
+<form th:action="@{'/board/update/' + ${board.id}}" method="post">
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title" th:value="${board.title}" required>
+
+    <label for="content">내용</label>
+    <textarea id="content" name="content" required
+              th:text="${board.content}"></textarea>
+
+    <label for="writer">작성자</label>
+    <input type="text" id="writer" name="writer" th:value="${board.writer}" required>
+
+    <button type="submit">수정 완료</button>
+</form>
 
 </body>
 </html>

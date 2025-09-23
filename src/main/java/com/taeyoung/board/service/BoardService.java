@@ -34,4 +34,15 @@ public class BoardService {
     public void delete(Long id) {
         boardRepository.deleteById(id);
     }
+
+    // 글 찾기(id)
+    public Board findById(Long id){
+        return boardRepository.findById(id);
+    }
+
+    // 글 수정
+    public void update(BoardForm form){
+        Board board = new Board(form.getId(), form.getTitle(), form.getContent(), form.getWriter());
+        boardRepository.update(board);
+    }
 }

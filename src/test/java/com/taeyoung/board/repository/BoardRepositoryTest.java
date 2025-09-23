@@ -33,4 +33,10 @@ public class BoardRepositoryTest {
         List<Board> afterBoardList = repository.findAll();
         Assertions.assertThat(afterBoardList.size()).isEqualTo(beforeBoardList.size() - 1);
     }
+
+    @Test
+    void update() {
+        Board board = new Board(8L,"테스트 수정", "뭐해", "이태영");
+        repository.update(board);
+    }
 }

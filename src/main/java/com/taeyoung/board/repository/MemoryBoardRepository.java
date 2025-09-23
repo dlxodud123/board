@@ -90,6 +90,56 @@ public class MemoryBoardRepository implements BoardRepository{
         }
     }
 
+    // 글 찾기(id)
+    public Board findById(Long id){
+        String sql = "select * from board where id = ?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setLong(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()){
+                return new Board(rs.getLong("id"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getString("writer"));
+            } else {
+                throw new RuntimeException();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con, pstmt, rs);
+        }
+    }
+
+    // 글 수정
+    public void update(Board board){
+        String sql = "update board set title = ?, content = ?, writer = ? where id = ?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, board.getTitle());
+            pstmt.setString(2, board.getContent());
+            pstmt.setString(3, board.getWriter());
+            pstmt.setLong(4, board.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
     // connection 연결
     private Connection getConnection() throws SQLException {
         Connection con = dataSource.getConnection();
