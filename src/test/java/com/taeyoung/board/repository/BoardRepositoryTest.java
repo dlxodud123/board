@@ -18,7 +18,6 @@ public class BoardRepositoryTest {
         repository.save(board);
 
         // findALl
-
     }
 
 }
