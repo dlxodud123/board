@@ -32,5 +32,10 @@ public class BoardController {
     }
 
     // 글 목록
-
+    @GetMapping("/board")
+    public String listBoards(Model model) {
+        List<Board> boards = boardService.findAll();
+        model.addAttribute("boards", boards);
+        return "boardList";
+    }
 }
