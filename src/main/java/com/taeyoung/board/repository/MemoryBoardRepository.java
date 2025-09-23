@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class MemoryBoardRepository implements BoardRepository{
@@ -40,7 +42,34 @@ public class MemoryBoardRepository implements BoardRepository{
     }
 
     // 글 목록
+    @Override
+    public List<Board> findAll() {
+        String sql = "select * from board";
 
+        List<Board> boards = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try{
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                boards.add(new Board(
+                    rs.getLong("id"),
+                    rs.getString("title"),
+                    rs.getString("content"),
+                    rs.getString("writer"))
+                );
+            }
+            return boards;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con, pstmt, rs);
+        }
+    }
 
     // connection 연결
     private Connection getConnection() throws SQLException {

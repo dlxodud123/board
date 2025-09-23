@@ -14,4 +14,10 @@ public class Board {
         this.content = content;
         this.writer = writer;
     }
+    public Board(Long id, String title, String content, String writer) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+    }
 }
