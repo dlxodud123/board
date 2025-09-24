@@ -1,6 +1,8 @@
 package com.taeyoung.board.repository;
 
 import com.taeyoung.board.domain.Board;
+import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.stereotype.Repository;
 
@@ -10,13 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MemoryBoardRepository implements BoardRepository{
 
     private final DataSource dataSource;
-
-    public MemoryBoardRepository(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     // 글 작성
     @Override
@@ -142,13 +141,13 @@ public class MemoryBoardRepository implements BoardRepository{
 
     // connection 연결
     private Connection getConnection() throws SQLException {
-        Connection con = dataSource.getConnection();
+        Connection con = DataSourceUtils.getConnection(dataSource);
         return con;
     }
     // JDBC 리소스 종료
     private void close(Connection con, Statement stmt, ResultSet rs) {
-        JdbcUtils.closeConnection(con);
         JdbcUtils.closeStatement(stmt);
         JdbcUtils.closeResultSet(rs);
+        DataSourceUtils.releaseConnection(con, dataSource);
     }
 }

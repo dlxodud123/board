@@ -1,12 +1,13 @@
 package com.taeyoung.board.repository;
 
 import com.taeyoung.board.domain.Board;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 public class BoardRepositoryTest {
@@ -18,12 +19,16 @@ public class BoardRepositoryTest {
     void save() {
         Board board = new Board("안녕", "뭐해", "이태영");
         repository.save(board);
+
+        List<Board> boards = repository.findAll();
+        assertThat(boards).isNotEmpty();
+        assertThat(boards.get(boards.size() - 1).getTitle()).isEqualTo("안녕");
     }
 
     @Test
     void findAll() {
         List<Board> boardList = repository.findAll();
-        Assertions.assertThat(boardList).isNotEmpty();
+        assertThat(boardList).isNotEmpty();
     }
 
     @Test
@@ -31,7 +36,7 @@ public class BoardRepositoryTest {
         List<Board> beforeBoardList = repository.findAll();
         repository.deleteById(7L);
         List<Board> afterBoardList = repository.findAll();
-        Assertions.assertThat(afterBoardList.size()).isEqualTo(beforeBoardList.size() - 1);
+        assertThat(afterBoardList.size()).isEqualTo(beforeBoardList.size() - 1);
     }
 
     @Test

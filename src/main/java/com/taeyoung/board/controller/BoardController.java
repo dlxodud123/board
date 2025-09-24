@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 public class BoardController {
 
-    BoardService boardService;
+    private final BoardService boardService;
 
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
