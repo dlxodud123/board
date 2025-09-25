@@ -1,9 +1,11 @@
 package com.taeyoung.board.repository;
 
 import com.taeyoung.board.domain.Board;
-import lombok.RequiredArgsConstructor;
+import com.taeyoung.board.exception.MyDbException;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -12,10 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
 public class MemoryBoardRepository implements BoardRepository{
 
     private final DataSource dataSource;
+    private final SQLExceptionTranslator exTranslator;
+
+    public MemoryBoardRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.exTranslator = new SQLErrorCodeSQLExceptionTranslator(dataSource);
+    }
 
     // 글 작성
     @Override
@@ -34,7 +41,7 @@ public class MemoryBoardRepository implements BoardRepository{
             pstmt.executeUpdate();
             return board;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw exTranslator.translate("save", sql, e);
         } finally {
             close(con, pstmt, null);
         }
@@ -64,7 +71,7 @@ public class MemoryBoardRepository implements BoardRepository{
             }
             return boards;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw exTranslator.translate("findAll", sql, e);
         } finally {
             close(con, pstmt, rs);
         }
@@ -83,7 +90,7 @@ public class MemoryBoardRepository implements BoardRepository{
             pstmt.setLong(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw exTranslator.translate("deleteById", sql, e);
         } finally {
             close(con, pstmt, null);
         }
@@ -111,7 +118,7 @@ public class MemoryBoardRepository implements BoardRepository{
                 throw new RuntimeException();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw exTranslator.translate("findById", sql, e);
         } finally {
             close(con, pstmt, rs);
         }
@@ -133,18 +140,21 @@ public class MemoryBoardRepository implements BoardRepository{
             pstmt.setLong(4, board.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw exTranslator.translate("update", sql, e);
         } finally {
             close(con, pstmt, null);
         }
     }
 
-    // connection 연결
-    private Connection getConnection() throws SQLException {
-        Connection con = DataSourceUtils.getConnection(dataSource);
-        return con;
+    private Connection getConnection() {
+        try{
+            Connection con = DataSourceUtils.getConnection(dataSource);
+            return con;
+        } catch (Exception e){
+            throw new MyDbException(e);
+        }
     }
-    // JDBC 리소스 종료
+
     private void close(Connection con, Statement stmt, ResultSet rs) {
         JdbcUtils.closeStatement(stmt);
         JdbcUtils.closeResultSet(rs);
