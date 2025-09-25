@@ -34,7 +34,7 @@ public class BoardRepositoryTest {
     @Test
     void deleteById() {
         List<Board> beforeBoardList = repository.findAll();
-        repository.deleteById(7L);
+        repository.deleteById(8L);
         List<Board> afterBoardList = repository.findAll();
         assertThat(afterBoardList.size()).isEqualTo(beforeBoardList.size() - 1);
     }
