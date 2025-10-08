@@ -48,10 +48,16 @@ public class BoardRepositoryTest {
 
     @Test
     void deleteById() {
-        List<Board> beforeBoardList = repository.findAll();
-        repository.deleteById(8L);
-        List<Board> afterBoardList = repository.findAll();
-        assertThat(afterBoardList.size()).isEqualTo(beforeBoardList.size() - 1);
+        // given
+        Board board = new Board("test3", "test3", "test3");
+        repository.save(board);
+
+        // when
+        repository.deleteById(board.getId());
+
+        // then
+        List<Board> boardList = repository.findAll();
+        assertThat(boardList).isEmpty();
     }
 
     @Test
