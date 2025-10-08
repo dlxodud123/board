@@ -62,7 +62,19 @@ public class BoardRepositoryTest {
 
     @Test
     void update() {
-        Board board = new Board(8L,"테스트 수정", "뭐해", "이태영");
-        repository.update(board);
+        // given
+        Board board = new Board("test4", "test4", "test4");
+        repository.save(board);
+
+        // when
+        Board updateBoard = new Board("test44", "test44","test44");
+        updateBoard.setId(board.getId());
+        repository.update(updateBoard);
+
+        // then
+        Board findBoard = repository.findById(board.getId());
+        assertThat(findBoard.getTitle()).isEqualTo("test44");
+        assertThat(findBoard.getContent()).isEqualTo("test44");
+        assertThat(findBoard.getWriter()).isEqualTo("test44");
     }
 }
