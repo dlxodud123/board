@@ -29,14 +29,21 @@ public class BoardRepositoryTest {
 
         // then
         Board findBoard = repository.findById(board.getId());
-        log.info("findBoard={}", findBoard);
         assertThat(findBoard).isEqualTo(board);
     }
 
     @Test
     void findAll() {
+        // given
+        Board board = new Board("test2", "test2", "test2");
+        repository.save(board);
+
+        // when
         List<Board> boardList = repository.findAll();
-        assertThat(boardList).isNotEmpty();
+
+        // then
+        assertThat(boardList).hasSize(1);
+        assertThat(boardList.get(0).getTitle()).isEqualTo("test2");
     }
 
     @Test
