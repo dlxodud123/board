@@ -1,15 +1,19 @@
 package com.taeyoung.board.repository;
 
 import com.taeyoung.board.domain.Board;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
+@Transactional
 @SpringBootTest
+@Slf4j
 public class BoardRepositoryTest {
 
     @Autowired
@@ -17,12 +21,16 @@ public class BoardRepositoryTest {
 
     @Test
     void save() {
-        Board board = new Board("안녕", "뭐해", "이태영");
+        // given
+        Board board = new Board("test", "test", "test");
+
+        // when
         repository.save(board);
 
-        List<Board> boards = repository.findAll();
-        assertThat(boards).isNotEmpty();
-        assertThat(boards.get(boards.size() - 1).getTitle()).isEqualTo("안녕");
+        // then
+        Board findBoard = repository.findById(board.getId());
+        log.info("findBoard={}", findBoard);
+        assertThat(findBoard).isEqualTo(board);
     }
 
     @Test

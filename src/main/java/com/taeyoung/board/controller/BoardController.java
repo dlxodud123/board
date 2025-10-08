@@ -26,7 +26,7 @@ public class BoardController {
     @PostMapping("/board/save")
     public String saveBoard(@ModelAttribute BoardForm form) {
         boardService.createBoard(form);
-        return "redirect:/";
+        return "redirect:/board";
     }
 
     // 글 목록

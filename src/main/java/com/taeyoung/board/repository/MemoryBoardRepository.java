@@ -3,9 +3,12 @@ package com.taeyoung.board.repository;
 import com.taeyoung.board.domain.Board;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -21,7 +24,17 @@ public class MemoryBoardRepository implements BoardRepository{
     @Override
     public Board save(Board board) {
         String sql = "insert into board(title, content, writer) values(?, ?, ?)";
-        jdbcTemplate.update(sql, board.getTitle(), board.getContent(), board.getWriter());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
+            ps.setString(1, board.getTitle());
+            ps.setString(2, board.getContent());
+            ps.setString(3, board.getWriter());
+            return ps;
+        }, keyHolder);
+
+        Long id = keyHolder.getKey().longValue();
+        board.setId(id); // 생성된 id를 넣어줌
         return board;
     }
 
