@@ -50,14 +50,6 @@ public class MemoryBoardRepository implements BoardRepository{
         String sql = "delete from board where id = ?";
         jdbcTemplate.update(sql, id);
     }
-    private RowMapper<Board> boardRowMapper() {
-        return (rs, rowNum) -> new Board(
-                rs.getLong("id"),
-                rs.getString("title"),
-                rs.getString("content"),
-                rs.getString("writer")
-        );
-    }
 
     // 글 찾기(id)
     public Board findById(Long id){
@@ -69,5 +61,14 @@ public class MemoryBoardRepository implements BoardRepository{
     public void update(Board board){
         String sql = "update board set title = ?, content = ?, writer = ? where id = ?";
         jdbcTemplate.update(sql, board.getTitle(), board.getContent(), board.getWriter(), board.getId());
+    }
+
+    private RowMapper<Board> boardRowMapper() {
+        return (rs, rowNum) -> new Board(
+                rs.getLong("id"),
+                rs.getString("title"),
+                rs.getString("content"),
+                rs.getString("writer")
+        );
     }
 }
