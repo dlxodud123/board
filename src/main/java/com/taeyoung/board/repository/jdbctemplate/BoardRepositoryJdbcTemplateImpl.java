@@ -24,7 +24,7 @@ public class BoardRepositoryJdbcTemplateImpl implements BoardRepository {
 
     // 글 작성
     @Override
-    public Board save(Board board) {
+    public void save(Board board) {
         String sql = "insert into board(title, content, writer) values(?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> {
@@ -37,7 +37,6 @@ public class BoardRepositoryJdbcTemplateImpl implements BoardRepository {
 
         Long id = keyHolder.getKey().longValue();
         board.setId(id); // 생성된 id를 넣어줌
-        return board;
     }
 
     // 글 목록

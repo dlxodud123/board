@@ -18,9 +18,8 @@ public class BoardRepositoryMyBatisImpl implements BoardRepository {
     private final BoardMapper boardMapper;
 
     @Override
-    public Board save(Board board) {
+    public void save(Board board) {
         boardMapper.save(board);
-        return board;
     }
 
     @Override

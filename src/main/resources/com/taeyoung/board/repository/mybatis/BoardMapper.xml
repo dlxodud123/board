@@ -16,7 +16,7 @@
         delete from board where id = #{id}
     </delete>
 
-    <select id="findById" parameterType="long" resultType="com.taeyoung.board.domain.Board">
+    <select id="findById" parameterType="long" resultType="Board">
         select * from board where id = #{id}
     </select>
 

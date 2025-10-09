@@ -1,5 +1,6 @@
 package com.taeyoung.board;
 
+import com.taeyoung.board.config.jdbctemplate.JdbcTemplateConfig;
 import com.taeyoung.board.config.mybatis.MyBatisConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
