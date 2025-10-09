@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-@Primary 
+@Primary
 public class BoardRepositoryMyBatisImpl implements BoardRepository {
 
     private final BoardMapper boardMapper;

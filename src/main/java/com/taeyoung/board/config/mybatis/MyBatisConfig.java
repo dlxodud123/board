@@ -6,5 +6,4 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("com.taeyoung.board.repository.mybatis")
 public class MyBatisConfig {
-
 }

@@ -8,7 +8,7 @@
         values (#{title}, #{content}, #{writer})
     </insert>
 
-    <select id="findAll" resultType="com.taeyoung.board.domain.Board">
+    <select id="findAll" resultType="Board">
         select * from board
     </select>
     
