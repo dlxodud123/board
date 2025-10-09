@@ -1,6 +1,7 @@
 package com.taeyoung.board.repository;
 
 import com.taeyoung.board.domain.Board;
+import com.taeyoung.board.repository.jdbctemplate.BoardRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import static org.assertj.core.api.Assertions.*;
 public class BoardRepositoryTest {
 
     @Autowired
-    MemoryBoardRepository repository;
+    BoardRepositoryImpl repository;
 
     @Test
     void save() {

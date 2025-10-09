@@ -1,23 +1,25 @@
-package com.taeyoung.board.repository;
+package com.taeyoung.board.repository.jdbctemplate;
 
 import com.taeyoung.board.domain.Board;
+import com.taeyoung.board.repository.BoardRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.util.List;
 
+@Slf4j
 @Repository
-public class MemoryBoardRepository implements BoardRepository{
+public class BoardRepositoryImpl implements BoardRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public MemoryBoardRepository(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public BoardRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     // 글 작성

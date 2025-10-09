@@ -1,4 +1,4 @@
-package com.taeyoung.board.repository;
+package com.taeyoung.board.repository.mybatis;
 
 import com.taeyoung.board.domain.Board;
 import org.apache.ibatis.annotations.Mapper;
