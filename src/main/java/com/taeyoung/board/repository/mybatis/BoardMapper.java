@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface BoardMapper {
-    Board save(Board board);
+    void save(Board board);
     List<Board> findAll();
     void deleteById(Long id);
     Board findById(Long id);

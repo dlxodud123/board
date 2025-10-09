@@ -12,34 +12,35 @@ import java.util.List;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-@Primary
+@Primary 
 public class BoardRepositoryMyBatisImpl implements BoardRepository {
 
     private final BoardMapper boardMapper;
 
     @Override
     public Board save(Board board) {
-        return null;
+        boardMapper.save(board);
+        return board;
     }
 
     @Override
     public List<Board> findAll() {
-        return List.of();
+        return boardMapper.findAll();
     }
 
     @Override
     public void deleteById(Long id) {
-
+        boardMapper.deleteById(id);
     }
 
     @Override
     public Board findById(Long id) {
-        return null;
+        return boardMapper.findById(id);
     }
 
     @Override
     public void update(Board board) {
-
+        boardMapper.update(board);
     }
 
 }

@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.*;
 public class BoardRepositoryTest {
 
     @Autowired
-    BoardRepositoryJdbcTemplateImpl repository;
+    private BoardRepository repository;
 
     @Test
     void save() {

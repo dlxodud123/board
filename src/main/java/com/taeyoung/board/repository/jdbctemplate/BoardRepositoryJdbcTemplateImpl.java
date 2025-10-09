@@ -17,6 +17,7 @@ import java.util.List;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
+//@Primary
 public class BoardRepositoryJdbcTemplateImpl implements BoardRepository {
 
     private final JdbcTemplate jdbcTemplate;

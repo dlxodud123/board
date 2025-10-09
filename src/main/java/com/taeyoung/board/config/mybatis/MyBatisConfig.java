@@ -1,13 +1,10 @@
 package com.taeyoung.board.config.mybatis;
 
-import com.taeyoung.board.repository.mybatis.BoardMapper;
-import lombok.RequiredArgsConstructor;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@RequiredArgsConstructor
+@MapperScan("com.taeyoung.board.repository.mybatis")
 public class MyBatisConfig {
-
-    private final BoardMapper boardMapper;
 
 }

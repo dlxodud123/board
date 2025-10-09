@@ -8,7 +8,7 @@
         values (#{title}, #{content}, #{writer})
     </insert>
 
-    <select id="findAll" resultType="Board">
+    <select id="findAll" resultType="com.taeyoung.board.domain.Board">
         select * from board
     </select>
     
@@ -16,7 +16,7 @@
         delete from board where id = #{id}
     </delete>
 
-    <select id="findById" parameterType="long" resultType="Board">
+    <select id="findById" parameterType="long" resultType="com.taeyoung.board.domain.Board">
         select * from board where id = #{id}
     </select>
 
