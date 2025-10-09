@@ -2,7 +2,9 @@ package com.taeyoung.board.repository.jdbctemplate;
 
 import com.taeyoung.board.domain.Board;
 import com.taeyoung.board.repository.BoardRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,13 +16,10 @@ import java.util.List;
 
 @Slf4j
 @Repository
-public class BoardRepositoryImpl implements BoardRepository {
+@RequiredArgsConstructor
+public class BoardRepositoryJdbcTemplateImpl implements BoardRepository {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public BoardRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     // 글 작성
     @Override
