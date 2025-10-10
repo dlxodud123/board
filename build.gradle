@@ -8,6 +8,9 @@ group = 'com.taeyoung'
 version = '0.0.1-SNAPSHOT'
 description = 'Demo project for Spring Boot'
 
+// hibernate 버전 수동 변경
+ext["hibernate.version"] = "5.6.5.Final"
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
