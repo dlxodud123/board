@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 @Slf4j
 @RequiredArgsConstructor
-//@Primary
+@Primary
 public class BoardRepositorySpringDataJpaImpl implements BoardRepository {
 
     private final BoardRepositorySdj repositorySdj;

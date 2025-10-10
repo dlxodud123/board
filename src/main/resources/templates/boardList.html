@@ -27,10 +27,36 @@
     }
     .edit-btn { background-color: gray; color: white; }
     .delete-btn { background-color: #f44336; color: white; }
+
+    /* 검색 input과 버튼 스타일 */
+    .search-input {
+        height: 32px;          /* 버튼과 동일한 높이 */
+        width: 300px;          /* 가로 길이 조절 */
+        padding: 0 8px;        /* 안쪽 여백 */
+        font-size: 14px;
+        box-sizing: border-box;
+        vertical-align: middle;
+    }
+
+    .search-btn {
+        height: 34px;          /* input과 맞추기 (border 고려) */
+        padding: 0 12px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    /* input과 버튼이 수평으로 붙도록 */
+    .search-input + .search-btn {
+        margin-left: 4px;
+    }
   </style>
 </head>
 <body>
 <h2 style="text-align: center;">게시판 목록</h2>
+<form th:action="@{/board}" method="get" style="text-align:center; margin-bottom: 20px;">
+  <input type="text" name="title" placeholder="제목 검색" th:value="${title}" class="search-input">
+  <button type="submit" class="search-btn">검색</button>
+</form>
 <table>
   <thead>
   <tr>
