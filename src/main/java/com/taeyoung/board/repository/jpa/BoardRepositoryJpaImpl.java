@@ -25,7 +25,7 @@ public class BoardRepositoryJpaImpl implements BoardRepository {
 
     @Override
     public List<Board> findAll() {
-        return em.createQuery("SELECT b FROM Board b", Board.class)
+        return em.createQuery("select b from Board b", Board.class)
                 .getResultList();
     }
 
@@ -46,8 +46,10 @@ public class BoardRepositoryJpaImpl implements BoardRepository {
     public void update(Board board) {
         Board findBoard = em.find(Board.class, board.getId());
 
-        findBoard.setTitle(board.getTitle());
-        findBoard.setContent(board.getContent());
-        findBoard.setWriter(board.getWriter());
+        if (board != null){
+            findBoard.setTitle(board.getTitle());
+            findBoard.setContent(board.getContent());
+            findBoard.setWriter(board.getWriter());
+        }
     }
 }
