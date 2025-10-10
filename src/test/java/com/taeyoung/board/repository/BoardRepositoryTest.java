@@ -1,6 +1,7 @@
 package com.taeyoung.board.repository;
 
 import com.taeyoung.board.domain.Board;
+import com.taeyoung.board.repository.search.BoardSearchRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository repository;
+    @Autowired
+    private BoardSearchRepository searchRepository;
 
     @Test
     void save() {
@@ -76,5 +79,24 @@ public class BoardRepositoryTest {
         assertThat(findBoard.getTitle()).isEqualTo("test44");
         assertThat(findBoard.getContent()).isEqualTo("test44");
         assertThat(findBoard.getWriter()).isEqualTo("test44");
+    }
+
+    @Test
+    void findByTitleContaining() {
+        // given
+        repository.save(new Board("Spring Boot Guide", "content1", "author1"));
+        repository.save(new Board("Querydsl Tutorial", "content2", "author2"));
+        repository.save(new Board("JPA Basics", "content3", "author3"));
+
+        // when
+        List<Board> springResult = searchRepository.findByTitleContaining("Spring");
+        List<Board> notExistResult = searchRepository.findByTitleContaining("NotExist");
+
+        // then
+        // 검색어 "Spring" → 결과 1건
+        assertThat(springResult).hasSize(1);
+        assertThat(springResult.get(0).getTitle()).contains("Spring");
+        // 검색어 "NotExist" → 결과 없음
+        assertThat(notExistResult).isEmpty();
     }
 }
