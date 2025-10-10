@@ -1,5 +1,9 @@
 package com.taeyoung.board.config.jpa;
 
-public class JpaConfig {
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
+@RequiredArgsConstructor
+public class JpaConfig {
 }
