@@ -1,11 +1,8 @@
 package com.taeyoung.board.repository;
 
 import com.taeyoung.board.domain.Board;
-import com.taeyoung.board.repository.jdbctemplate.BoardRepositoryJdbcTemplateImpl;
-import com.taeyoung.board.repository.jpa.BoardRepositoryJpaImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
