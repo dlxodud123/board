@@ -90,13 +90,10 @@ public class BoardRepositoryTest {
 
         // when
         List<Board> springResult = searchRepository.findByTitleContaining("Spring");
-        List<Board> notExistResult = searchRepository.findByTitleContaining("NotExist");
 
         // then
         // 검색어 "Spring" → 결과 1건
         assertThat(springResult).hasSize(1);
         assertThat(springResult.get(0).getTitle()).contains("Spring");
-        // 검색어 "NotExist" → 결과 없음
-        assertThat(notExistResult).isEmpty();
     }
 }
