@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Repository
-@Primary
+//@Primary
 public class BoardRepositoryJpaImpl implements BoardRepository {
 
     private final EntityManager em;
