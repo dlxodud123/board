@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
@@ -26,8 +27,8 @@ public class TransactionTest {
 
     @Test
     void txTest() {
-        basicService.tx();
-        basicService.nonTx();
+        basicService.tx1();
+        basicService.tx2();
     }
 
     @TestConfiguration
@@ -39,21 +40,24 @@ public class TransactionTest {
     }
 
     @Slf4j
+    @Transactional
     static class BasicService{
 
         @Transactional
-        public void tx() {
+        public void tx1() {
             log.info("call tx");
-            // 트랜잭션이 적용되어있는지 아닌지 확인
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("ts action={}", txActive);
+            boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
+            log.info("tx readOnly={}", readOnly);
         }
 
-        public void nonTx() {
+        public void tx2() {
             log.info("call nonTx");
-            // 트랜잭션이 적용되어있는지 아닌지 확인 
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("ts action={}", txActive);
+            boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
+            log.info("tx readOnly={}", readOnly);
         }
     }
 }
