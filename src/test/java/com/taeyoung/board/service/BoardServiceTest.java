@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
-public class MemoryBoardServiceTest {
+public class BoardServiceTest {
 
     @Autowired
     private BoardService boardService;

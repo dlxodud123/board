@@ -4,6 +4,7 @@ import com.taeyoung.board.domain.Board;
 import com.taeyoung.board.repository.search.BoardSearchRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,12 @@ public class BoardRepositoryTest {
     private BoardRepository repository;
     @Autowired
     private BoardSearchRepository searchRepository;
+
+    @Test
+    void checkRepositoryType() {
+        log.info("repository class = {}", repository.getClass());
+        log.info("repository class = {}", searchRepository.getClass());
+    }
 
     @Test
     void save() {
