@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
@@ -40,12 +39,12 @@ public class TransactionTest {
     }
 
     @Slf4j
-    @Transactional
+    @Transactional(readOnly = true)
     static class BasicService{
 
-        @Transactional
+        @Transactional(readOnly = false)
         public void tx1() {
-            log.info("call tx");
+            log.info("call tx1");
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("ts action={}", txActive);
             boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
@@ -53,7 +52,7 @@ public class TransactionTest {
         }
 
         public void tx2() {
-            log.info("call nonTx");
+            log.info("call tx2");
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("ts action={}", txActive);
             boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
