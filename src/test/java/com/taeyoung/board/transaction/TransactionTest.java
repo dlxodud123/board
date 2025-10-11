@@ -51,7 +51,7 @@ public class TransactionTest {
 
         public void nonTx() {
             log.info("call nonTx");
-            // 트랜잭션이 적용되어있는지 아닌지 확인
+            // 트랜잭션이 적용되어있는지 아닌지 확인 
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("ts action={}", txActive);
         }
